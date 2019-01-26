@@ -126,20 +126,19 @@ def getclaimsforadmin(request):
         return JsonResponse(serializer.data,safe=False)
 @csrf_exempt
 def getclaimstatusfordialogflow(request):
-
-    def get_object(self, pk):
+    if request.method == 'POST':
+        #serializer = ClaimSerializer(data=request.data)
+        data = JSONParser().parse(request)
+        claimNo = data['queryResult']['parameters']['any']
         try:
-            return Claim.objects.get(pk=pk)
+            snippet = Claim.objects.get(pk=claimNo)
         except Claim.DoesNotExist:
-            raise Http404
-    def post(self, request, format=None):
-        serializer = ClaimSerializer(data=request.data)
-        claimNo = request.data['queryResult']['parameters']['any']
-        snippet = self.get_object(claimNo)
-        serializer = ClaimSerializer(snippet)
-        claim_status = serializer.data['status']
-        result= {"fulfillmentText":claim_status, "fulfillmentMessages": [{"text":{ "text": [claim_status]}}]}
-        return HttpResponse(json.dumps(result),content_type="application/json")
+            raise HttpResponse(status=404)
+        else:
+            serializer = ClaimSerializer(snippet)
+            claim_status = serializer.data['status']
+            result= {"fulfillmentText":claim_status, "fulfillmentMessages": [{"text":{ "text": [claim_status]}}]}
+            return HttpResponse(json.dumps(result),content_type="application/json")
 
         
 
