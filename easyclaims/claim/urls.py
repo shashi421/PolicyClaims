@@ -11,6 +11,8 @@ urlpatterns = [
     path('updateclaim/',views.updateclaim),
     path('getclaims/',views.getclaims),
     path('getclaimsforadmin/',views.getclaimsforadmin),
+    path('getclaimstatus/',views.getclaimstatusfordialogflow)
+
 
 
 
