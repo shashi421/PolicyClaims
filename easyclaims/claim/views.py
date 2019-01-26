@@ -134,7 +134,7 @@ def getclaimstatusfordialogflow(request):
             raise Http404
     def post(self, request, format=None):
         serializer = ClaimSerializer(data=request.data)
-        claimNo = request.data['queryResult']['parameters']['number']
+        claimNo = request.data['queryResult']['parameters']['any']
         snippet = self.get_object(claimNo)
         serializer = ClaimSerializer(snippet)
         claim_status = serializer.data['status']
