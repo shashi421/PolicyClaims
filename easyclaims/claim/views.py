@@ -138,7 +138,7 @@ def getclaimstatusfordialogflow(request):
             serializer = ClaimSerializer(snippet)
             claim_status = serializer.data['status']
             result= {"fulfillmentText":claim_status, "fulfillmentMessages": [{"text":{ "text": [claim_status]}}]}
-            return HttpResponse(json.dumps(result),content_type="application/json")
+            return JsonResponse(result,safe=False)
 
         
 
