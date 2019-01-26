@@ -1,1 +1,1 @@
-# PolicyClaims
+# EasyClaims
